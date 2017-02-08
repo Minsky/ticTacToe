@@ -99,13 +99,29 @@ public class Board implements Parcelable {
                 state = GameState.FINISHED;
                 winner = currentTurn;
 
-            } else {
+            }
+            else if (isGameOverUndecided()) {
+                state = GameState.FINISHED;
+                winner = Player.NO;
+            }
+            else {
                 // flip the current turn and continue
                 flipCurrentTurn();
             }
         }
-
         return playerThatMoved;
+    }
+
+    private boolean isGameOverUndecided()
+    {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (cells[i][j].getValue() != Player.X && cells[i][j].getValue() != Player.O) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public Player valueAtCell(int row, int col) {
