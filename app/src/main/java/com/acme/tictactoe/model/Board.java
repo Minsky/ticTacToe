@@ -104,7 +104,11 @@ public class Board implements Parcelable {
                 flipCurrentTurn();
             }
         }
-
+        else { // keep old value if the move was on board
+            if (isCellValueAlreadySet(row, col)) {
+                return cells[row][col].getValue();
+            }
+        }
         return playerThatMoved;
     }
 
